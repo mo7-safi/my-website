@@ -4,200 +4,378 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>محاضرات معلوماتية حمص - السنة الأولى</title>
+    <!-- استدعاء خط Cairo من Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f8f9fa;
+            /* الألوان الأساسية للموقع */
+            --bg-color: #f8faff; 
             --card-bg: #ffffff;
-            --text-color: #212529;
-            --accent-color: #0d6efd;
-            --disclaimer-bg: #fff3cd;
-            --disclaimer-text: #856404;
+            --text-color: #2d3436;
+            
+            /* تدرجات الهوية البصرية الأساسية */
+            --mixed-gradient: linear-gradient(135deg, #6c5ce7, #0984e3);
+            --blue-primary: #0984e3;
+            --purple-primary: #6c5ce7;
+            
+            /* تدرجات المواد الفريدة */
+            --math-grad: linear-gradient(135deg, #e3f2fd, #ffffff);
+            --math-border: linear-gradient(90deg, #2196f3, #64b5f6);
+            
+            --prog-grad: linear-gradient(135deg, #e8f5e9, #ffffff);
+            --prog-border: linear-gradient(90deg, #4caf50, #81c784);
+            
+            --principles-grad: linear-gradient(135deg, #fff3e0, #ffffff);
+            --principles-border: linear-gradient(90deg, #ff9800, #ffb74d);
+            
+            --boolean-grad: linear-gradient(135deg, #e0f2f1, #ffffff);
+            --boolean-border: linear-gradient(90deg, #009688, #4db6ac);
+            
+            --elec-grad: linear-gradient(135deg, #fffde7, #ffffff);
+            --elec-border: linear-gradient(90deg, #fbc02d, #fff176);
+            
+            --english-grad: linear-gradient(135deg, #f3e5f5, #ffffff);
+            --english-border: linear-gradient(90deg, #9c27b0, #ba68c8);
+            
+            --arabic-grad: linear-gradient(135deg, #ffebee, #ffffff);
+            --arabic-border: linear-gradient(90deg, #f44336, #e57373);
+            
             --tab-inactive: #e9ecef;
+            --disclaimer-bg: #fff9e6;
+            --disclaimer-text: #856404;
         }
 
         [data-theme="dark"] {
             --bg-color: #121212;
             --card-bg: #1e1e1e;
-            --text-color: #f8f9fa;
-            --accent-color: #3d8bfd;
-            --disclaimer-bg: #2c2500;
-            --disclaimer-text: #ffd33d;
+            --text-color: #e4e6eb;
             --tab-inactive: #2d2d2d;
+            
+            /* تدرجات المواد في المود الليلي (داكنة وهادئة) */
+            --math-grad: linear-gradient(135deg, #0d47a122, #1e1e1e);
+            --prog-grad: linear-gradient(135deg, #1b5e2022, #1e1e1e);
+            --principles-grad: linear-gradient(135deg, #e6510022, #1e1e1e);
+            --boolean-grad: linear-gradient(135deg, #004d4022, #1e1e1e);
+            --elec-grad: linear-gradient(135deg, #fbc02d22, #1e1e1e);
+            --english-grad: linear-gradient(135deg, #4a148c22, #1e1e1e);
+            --arabic-grad: linear-gradient(135deg, #b71c1c22, #1e1e1e);
+        }
+
+        * {
+            box-sizing: border-box;
+            /* منع نسخ النص */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0; padding: 0;
             transition: all 0.3s ease;
+            line-height: 1.4;
+            overflow-x: hidden;
         }
 
-        /* شريط التحكم العلوي */
         .top-nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 20px; background: var(--card-bg);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 12px 15px; background: var(--card-bg);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             position: sticky; top: 0; z-index: 1000;
         }
 
-        .btn-tool {
-            background: var(--accent-color); color: white; border: none;
-            padding: 10px; border-radius: 8px; cursor: pointer; margin: 0 2px;
-            font-weight: bold;
+        .nav-logo {
+            font-weight: 900; font-size: 1.2rem; 
+            background: var(--mixed-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* الهيدر والملاحظة */
-        header { text-align: center; padding: 30px 15px; }
+        .btn-tool {
+            background: var(--tab-inactive); color: var(--text-color); border: none;
+            padding: 8px 12px; border-radius: 12px; cursor: pointer;
+            font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 0.8rem;
+        }
+
+        header { 
+            text-align: center; 
+            padding: 45px 15px; 
+            background: var(--mixed-gradient);
+            color: white;
+            border-bottom-left-radius: 45px;
+            border-bottom-right-radius: 45px;
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.25);
+        }
+        
+        header h1 { margin: 0; font-size: 1.8rem; font-weight: 900; }
+        header p { opacity: 0.9; font-size: 0.95rem; margin-top: 8px; font-weight: 600; }
+
         .disclaimer {
             background: var(--disclaimer-bg); color: var(--disclaimer-text);
-            padding: 15px; border-radius: 12px; max-width: 800px; margin: 20px auto;
-            border-right: 6px solid #ffc107; font-size: 0.95em;
+            padding: 15px; border-radius: 20px; max-width: 92%; margin: -25px auto 30px;
+            border-right: 6px solid #f1c40f; font-size: 0.85em; font-weight: 700;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            position: relative; z-index: 10;
         }
 
-        /* نظام التبويبات (الفصول) */
         .semester-tabs {
-            display: flex; justify-content: center; gap: 15px; margin-bottom: 30px;
+            display: flex; justify-content: center; gap: 10px; margin-bottom: 30px;
         }
 
         .tab-btn {
-            padding: 15px 40px; border: none; border-radius: 30px;
-            font-size: 1.1em; font-weight: bold; cursor: pointer;
-            transition: 0.3s; background: var(--tab-inactive); color: var(--text-color);
+            padding: 12px 25px; border: none; border-radius: 15px;
+            font-size: 0.95rem; font-weight: 800; cursor: pointer;
+            transition: 0.4s; background: var(--card-bg); color: var(--text-color);
+            font-family: 'Cairo', sans-serif;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
 
-        .tab-btn.active {
-            background: var(--accent-color); color: white;
-            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+        .tab-btn.active { 
+            background: var(--mixed-gradient); color: white; 
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.3);
         }
-
-        /* الحاويات */
-        .semester-content { display: none; animation: fadeIn 0.5s; }
-        .semester-content.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .subjects-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px; max-width: 1100px; margin: 0 auto; padding: 0 20px;
+            display: grid; grid-template-columns: 1fr;
+            gap: 20px; max-width: 100%; margin: 0 auto; padding: 0 15px;
         }
 
+        @media (min-width: 768px) {
+            .subjects-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+        }
+
+        /* تصميم المربعات (Cards) بتدرجات فريدة */
         .card {
-            background: var(--card-bg); border-radius: 20px; padding: 25px;
-            text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 25px; padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.03);
+            position: relative;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        
+        .card:active { transform: scale(0.97); }
+
+        /* تطبيق التدرجات لكل مادة */
+        .card.math { background: var(--math-grad); }
+        .card.math::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--math-border); }
+
+        .card.prog { background: var(--prog-grad); }
+        .card.prog::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--prog-border); }
+
+        .card.principles { background: var(--principles-grad); }
+        .card.principles::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--principles-border); }
+
+        .card.boolean { background: var(--boolean-grad); }
+        .card.boolean::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--boolean-border); }
+
+        .card.electronics { background: var(--elec-grad); }
+        .card.electronics::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--elec-border); }
+
+        .card.english { background: var(--english-grad); }
+        .card.english::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--english-border); }
+
+        .card.arabic { background: var(--arabic-grad); }
+        .card.arabic::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--arabic-border); }
+
+        .card h3 { 
+            margin: 5px 0 18px; font-size: 1.2rem; font-weight: 800;
+            display: flex; align-items: center; gap: 12px;
+            color: var(--text-color);
+        }
+
+        .lecture-list:empty::before, .split-list:empty::before {
+            content: "لا يوجد محاضرات حالياً";
+            display: block; padding: 20px; background: rgba(0,0,0,0.02);
+            border-radius: 15px; font-size: 0.85em; color: #b2bec3; text-align: center;
+        }
+
+        .lecture-list, .split-list { display: flex; flex-direction: column; gap: 12px; }
+
+        .action-btn, .split-btn-item {
+            display: block; background: var(--card-bg); color: var(--text-color);
+            padding: 14px; border-radius: 18px; text-decoration: none;
+            font-weight: 700; transition: 0.3s; 
+            font-size: 0.95rem; text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
             border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .card h3 { margin-bottom: 20px; color: var(--accent-color); }
-
-        /* الأزرار داخل البطاقات */
-        .action-btn {
-            display: block; background: var(--accent-color); color: white;
-            padding: 12px; border-radius: 12px; text-decoration: none;
-            font-weight: bold; margin-top: 10px; transition: 0.2s;
+        .action-btn:active, .split-btn-item:active { 
+            background: var(--mixed-gradient); 
+            color: white; 
+            box-shadow: 0 8px 15px rgba(108, 92, 231, 0.2);
+            border-color: transparent;
         }
 
-        .split-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .split-btn {
-            background: #6c757d; color: white; padding: 10px;
-            border-radius: 10px; text-decoration: none; font-size: 0.9em;
-        }
-
-        .empty-state { text-align: center; padding: 50px; color: #888; font-style: italic; }
+        .split-btns-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .split-label { font-size: 0.8rem; color: #636e72; margin-bottom: 6px; font-weight: 800; text-align: center; }
 
         footer {
-            margin-top: 60px; padding: 40px; text-align: center;
-            background: var(--card-bg); border-top: 1px solid #ddd;
+            margin-top: 60px; padding: 40px 20px; text-align: center;
+            background: var(--card-bg); border-top: 1px solid rgba(0,0,0,0.05);
+            border-radius: 40px 40px 0 0;
         }
 
-        .tg-link { color: var(--accent-color); text-decoration: none; font-weight: bold; }
+        .footer-text { font-weight: 900; font-size: 1rem; color: var(--text-color); margin-bottom: 4px; }
+        .copyright { font-size: 0.8rem; opacity: 0.6; font-weight: 700; display: block; margin-bottom: 25px; }
+
+        .contact-section { margin-top: 15px; padding-top: 25px; border-top: 1px dashed rgba(0,0,0,0.1); }
+        .contact-title { font-weight: 800; font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8; }
+        
+        .tg-link { 
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 12px 28px; 
+            background: var(--mixed-gradient); 
+            color: white; border-radius: 18px;
+            text-decoration: none; font-weight: 800; font-size: 0.95rem;
+            box-shadow: 0 6px 15px rgba(9, 132, 227, 0.25);
+            transition: 0.3s;
+        }
+        .tg-link:active { transform: scale(0.95); }
+        .tg-icon { margin-left: 10px; display: flex; align-items: center; }
+
+        .semester-content { display: none; animation: slideUp 0.5s ease; }
+        .semester-content.active { display: block; }
+        
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
 
     </style>
 </head>
 <body id="app-body">
 
     <nav class="top-nav">
-        <div style="font-weight: bold;">🎓 جامعة حمص - IT</div>
+        <div class="nav-logo">🏛️ IT HOMS</div>
         <div>
-            <button class="btn-tool" onclick="toggleTheme()">🌙/☀️</button>
-            <button class="btn-tool" onclick="changeFont(2)">A+</button>
-            <button class="btn-tool" onclick="changeFont(-2)">A-</button>
+            <button class="btn-tool" onclick="toggleTheme()">🌓</button>
+            <button class="btn-tool" onclick="changeFont(1)">A+</button>
+            <button class="btn-tool" onclick="changeFont(-1)">A-</button>
         </div>
     </nav>
 
     <header>
-        <h1>محاضرات السنة الأولى - هندسة المعلوماتية</h1>
-        <div class="disclaimer">
-            ⚠️ <strong>تنبيه هام:</strong> هذه المحاضرات هي للمراجعة فقط أو للفهم قبل الدراسة. 
-            المصدر الأساسي والوحيد هو المقرر الرسمي المنشور على قناة الهيئة الطلابية.
-        </div>
+        <h1>المكتبة الرقمية</h1>
+        <p>هندسة المعلوماتية | جامعة حمص</p>
     </header>
+
+    <div class="disclaimer">
+        ⚠️ تنبيه: هذه المحاضرات مرجع مساعد، المرجع الأول دائماً هو المصادر الرسمية للهيئة الطلابية.
+    </div>
 
     <div class="semester-tabs">
         <button class="tab-btn active" onclick="showSemester(1)">الفصل الأول</button>
         <button class="tab-btn" onclick="showSemester(2)">الفصل الثاني</button>
     </div>
 
+    <!-- محتوى الفصل الأول -->
     <div id="semester1" class="semester-content active">
+        <div class="subjects-grid">
+            
+            <div class="card principles">
+                <h3>🖥️ مبادئ عمل الحواسيب</h3>
+                <div class="split-btns-container">
+                    <div>
+                        <span class="split-label">النظري</span>
+                        <div id="principles_theory-list" class="split-list"></div>
+                    </div>
+                    <div>
+                        <span class="split-label">العملي</span>
+                        <div id="principles_practical-list" class="split-list"></div>
+                    </div>
+                </div>
+            </div>
 
-<div class="subjects-grid">
-            <div class="card">
-                <h3>مبادئ عمل الحواسيب</h3>
-                <div class="split-btns">
-                    <a href="#" id="principles_theory" class="split-btn">قسم نظري</a>
-                    <a href="#" id="principles_practical" class="split-btn">قسم عملي</a>
+            <div class="card prog">
+                <h3>💻 البرمجة (1)</h3>
+                <div class="split-btns-container">
+                    <div>
+                        <span class="split-label">النظري</span>
+                        <div id="programming_theory-list" class="split-list"></div>
+                    </div>
+                    <div>
+                        <span class="split-label">العملي</span>
+                        <div id="programming_practical-list" class="split-list"></div>
+                    </div>
                 </div>
             </div>
-            <div class="card">
-                <h3>برمجة</h3>
-                <div class="split-btns">
-                    <a href="#" id="programming_theory" class="split-btn">قسم نظري</a>
-                    <a href="https://mo7-safi.github.io/my-website/lectures/م1 برمجة عملي.html" id="programming_practical" class="split-btn">قسم عملي</a>
-                </div>
+
+            <div class="card math">
+                <h3>📐 الرياضيات</h3>
+                <div id="math-list" class="lecture-list"></div>
             </div>
-            <div class="card"><h3>إنجليزي</h3><a href="#" id="english" class="action-btn">المحاضرات</a></div>
-            <div class="card"><h3>عربي</h3><a href="#" id="arabic" class="action-btn">المحاضرات</a></div>
-            <div class="card"><h3>جبر بول</h3><a href="#" id="boolean_algebra" class="action-btn">المحاضرات</a></div>
-            <div class="card"><h3>رياضيات</h3><a href="#" id="math" class="action-btn">المحاضرات</a></div>
+
+            <div class="card boolean">
+                <h3>🔢 جبر بول</h3>
+                <div id="boolean_algebra-list" class="lecture-list"></div>
+            </div>
+
+            <div class="card electronics">
+                <h3>⚡ دارات إلكترونية</h3>
+                <div id="electronics-list" class="lecture-list"></div>
+            </div>
+
+            <div class="card english">
+                <h3>لغة إنجليزية</h3>
+                <div id="english-list" class="lecture-list"></div>
+            </div>
+
+            <div class="card arabic">
+                <h3>لغة عربية</h3>
+                <div id="arabic-list" class="lecture-list"></div>
+            </div>
+
         </div>
-        
     </div>
 
     <div id="semester2" class="semester-content">
-        <div class="empty-state">
-            <p>سيتم إضافة مواد الفصل الثاني قريباً عند البدء بها.. بالتوفيق!</p>
+        <div style="text-align: center; padding: 60px; opacity: 0.5;">
+            <div style="font-size: 4rem; filter: grayscale(1);">🗓️</div>
+            <h3 style="font-weight: 900; margin-top: 15px;">قريباً.. مواد الفصل الثاني</h3>
         </div>
     </div>
 
     <footer>
-        <p>تم تصميم هذا الموقع بواسطة <strong>محمد صافي</strong></p>
-        <a href="https://t.me/Mo7_99" class="tg-link">Telegram: @Mo7_99</a>
+        <p class="footer-text">تم التطوير بواسطة مُحمد صافي</p>
+        <span class="copyright">جميع الحقوق محفوظة &copy; 2026</span>
+        <div class="contact-section">
+            <p class="contact-title">للتواصل مع المطور في حال وجود اخطاء :</p>
+            <a href="https://t.me/Mo7_99" class="tg-link">
+                <span class="tg-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+                </span>
+                @Mo7_99
+            </a>
+        </div>
     </footer>
 
     <script>
-        // دالة تبديل الفصول
         function showSemester(sem) {
             document.querySelectorAll('.semester-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            
             document.getElementById('semester' + sem).classList.add('active');
-            event.currentTarget.classList.add('active');
+            if (event.currentTarget) event.currentTarget.classList.add('active');
         }
 
-        // المود الليلي
         function toggleTheme() {
             const html = document.documentElement;
             const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', theme);
         }
 
-        // تغيير الخط
         let fSize = 16;
         function changeFont(n) {
             fSize += n;
+            if(fSize < 14) fSize = 14;
+            if(fSize > 20) fSize = 20;
             document.getElementById('app-body').style.fontSize = fSize + 'px';
         }
     </script>
 </body>
 </html>
-
